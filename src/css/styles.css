@@ -5,6 +5,8 @@
   |============================
 */
 @import url('./reset.css');
+@import url('./1-gallery.css');
+@import url('./2-gallery.css');
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -20,45 +22,4 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
-.gallery {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 24px;
-  list-style: none;
-  justify-content: center;
-  padding-left: 156px;
-  padding-right: 156px;
-}
-.gallery-item {
-}
-.gallery-image {
-  width: 360px;
-  height: 200px;
-}
-.feedback-form {
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  padding: 24px;
-  width: 408px;
-  height: 296px;
-  gap: 8px;
-}
-.btn-submit {
-  background: #4e75ff;
-  border-radius: 8px;
-  padding: 8px 16px;
-  width: 95px;
-  height: 40px;
-}
-.feedback-form-textarea {
-  width: 360px;
-  height: 80px;
-}
-.feedback-input-textarea {
-  width: 360px;
-  height: 40px;
 }
