@@ -80,11 +80,7 @@ const markup = images.reduce((html, el) => {
         </a>
       </li>`);
 }, '');
-galleryEl.addEventListener('click', onProductClick);
 
-function onProductClick(event) {
-  event.preventDefault();
-}
 galleryEl.insertAdjacentHTML('beforeend', markup);
 
 var lightbox = new SimpleLightbox('.gallery a', {

@@ -2,46 +2,52 @@ const formData = {
   email: '',
   message: '',
 };
+
 const emailInput = document.querySelector('input[name="email"]');
-const massageInput = document.querySelector('textarea[name="message"]');
+const messageInput = document.querySelector('textarea[name="message"]');
 const savedData = localStorage.getItem('feedback-form-state');
-const submitBtn = document.querySelector(`button`);
+const submitBtn = document.querySelector('button');
+
 console.log(savedData);
+
 function saveFormData() {
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 }
+
 function loadFormData() {
-  if (savedData !== null) {
-    const formData = JSON.parse(savedData);
-    emailInput.value = formData.email.trim();
-    massageInput.value = formData.message.trim();
-  }
+  const savedFormData = JSON.parse(savedData) || {};
+  formData.email = savedFormData.email || '';
+  formData.message = savedFormData.message || '';
+  emailInput.value = formData.email;
+  messageInput.value = formData.message;
 }
 
-function validateForm() {
-  if (emailInput.value.trim() === '' || massageInput.value.trim() === '') {
-    return alert('Fill please all fields');
-  }
-}
 function clearFormData() {
   formData.email = '';
   formData.message = '';
-  saveFormData();
   emailInput.value = '';
-  massageInput.value = '';
+  messageInput.value = '';
+  localStorage.removeItem('feedback-form-state');
 }
+
 const feedbackForm = document.querySelector('.feedback-form');
 
 feedbackForm.addEventListener('input', event => {
   const { name, value } = event.target;
-  formData[name] = value;
+  formData[name] = value.trim();
   saveFormData();
 });
 
 feedbackForm.addEventListener('submit', event => {
   event.preventDefault();
-
-  console.log(formData);
-  clearFormData();
+  if (emailInput.value.trim() === '' || messageInput.value.trim() === '') {
+    alert('Fill please all fields');
+  } else {
+    console.log(formData);
+    clearFormData();
+  }
 });
-window.addEventListener('load', loadFormData);
+
+window.addEventListener('load', () => {
+  loadFormData();
+});
