@@ -17,6 +17,7 @@ function loadFormData() {
     massageInput.value = formData.message.trim();
   }
 }
+
 function validateForm() {
   if (emailInput.value.trim() === '' || massageInput.value.trim() === '') {
     return alert('Fill please all fields');
