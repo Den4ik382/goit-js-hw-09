@@ -2,24 +2,46 @@ const formData = {
   email: '',
   message: '',
 };
-const btnEl = document.querySelector('.btn-submit');
-const formEL = document.querySelector('.feedback-form');
-formEL.addEventListener('input', event => {
-  if (event.target.name === 'email') {
-    formData.email = event.target.value;
-  } else {
-    formData.message = event.target.value;
+function saveFormData() {
+  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+}
+function loadFormData() {
+  const savedData = localStorage.getItem('feedback-form-state');
+  console.log(savedData);
+  if (savedData) {
+    formData = JSON.parse(savedData);
+    document.querySelector('input[name="email"]').value = formData.email;
+    document.querySelector('textarea[name="message"]').value = formData.message;
   }
-  //   console.log(formData);
-  const localStor = localStorage.setItem(
-    'feedback-form-state',
-    JSON.stringify(formData)
-  );
-  if (event.target.value === '') {
-    event.target.value = localStor;
+}
+function validateForm() {
+  for (const key in formData) {
+    if (formData.email.trim() === '' && formData.message.trim() === '') {
+      alert('Fill please all fields');
+      return false;
+    }
   }
+  return true;
+}
+function clearFormData() {
+  formData = { email: '', message: '' };
+  saveFormData();
+  document.querySelector('input[name="email"]').value = '';
+  document.querySelector('textarea[name="message"]').value = '';
+}
+const feedbackForm = document.querySelector('.feedback-form');
+
+feedbackForm.addEventListener('input', function (event) {
+  const { name, value } = event.target;
+  formData[name] = value;
+  saveFormData();
 });
 
-btnEl.addEventListener('click', event => {
+feedbackForm.addEventListener('submit', event => {
   event.preventDefault();
+  if (validateForm()) {
+    console.log(formData);
+    clearFormData();
+  }
 });
+window.addEventListener('load', loadFormData);
